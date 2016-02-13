@@ -139,8 +139,7 @@ var Geocoder = React.createClass({
           <ul className={`${this.props.showLoader && this.state.loading ? 'loading' : ''} ${this.props.resultsClass}`}>
             {this.state.results.map((result, i) => (
               <li key={result.id}>
-                <a href='#'
-                  onClick={this.clickOption.bind(this, result, i)}
+                <a onClick={this.clickOption.bind(this, result, i)}
                   className={this.props.resultClass + ' ' + (i === this.state.focus ? this.props.resultFocusClass : '')}
                   key={result.id}>{result.place_name}</a>
               </li>

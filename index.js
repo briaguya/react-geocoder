@@ -70,6 +70,7 @@ var Geocoder = React.createClass({
   },
   onSubmit(e) {
     e.preventDefault();
+    e.stopPropagation();
   },
   moveFocus(dir) {
     if(this.state.loading) return;

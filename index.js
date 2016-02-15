@@ -68,6 +68,9 @@ var Geocoder = React.createClass({
         this.onResult);
     }
   },
+  onSubmit(e) {
+    e.preventDefault();
+  },
   moveFocus(dir) {
     if(this.state.loading) return;
     this.setState({
@@ -130,6 +133,7 @@ var Geocoder = React.createClass({
       className={this.props.inputClass}
       onInput={this.onInput}
       onKeyDown={this.onKeyDown}
+      onSubmit={this.onSubmit}
       placeholder={this.props.inputPlaceholder}
       type='text' />;
     return (

@@ -1,15 +1,12 @@
-'use strict';
-
 var React = require('react'),
-    search = require('./search');
+  search = require('./search');
 
 /**
  * Geocoder component: connects to Mapbox.com Geocoding API
  * and provides an autocompleting interface for finding locations.
  */
 var Geocoder = React.createClass({
-  displayName: 'Geocoder',
-  getDefaultProps: function getDefaultProps() {
+  getDefaultProps() {
     return {
       endpoint: 'https://api.tiles.mapbox.com',
       inputClass: '',
@@ -21,11 +18,11 @@ var Geocoder = React.createClass({
       showLoader: false,
       source: 'mapbox.places',
       proximity: '',
-      onSuggest: function onSuggest() {},
+      onSuggest: function() {},
       focusOnMount: true
     };
   },
-  getInitialState: function getInitialState() {
+  getInitialState() {
     return {
       results: [],
       focus: null,
@@ -33,7 +30,6 @@ var Geocoder = React.createClass({
       searchTime: new Date()
     };
   },
-
   propTypes: {
     endpoint: React.PropTypes.string,
     source: React.PropTypes.string,
@@ -50,38 +46,48 @@ var Geocoder = React.createClass({
     showLoader: React.PropTypes.bool,
     focusOnMount: React.PropTypes.bool
   },
-  componentDidMount: function componentDidMount() {
+  componentDidMount() {
     if (this.props.focusOnMount) React.findDOMNode(this.refs.input).focus();
   },
-  onInput: function onInput(e) {
-    this.setState({ loading: true });
+  onInput(e) {
+    this.setState({loading:true});
     var value = e.target.value;
     if (value === '') {
       this.setState({
         results: [],
         focus: null,
-        loading: false
+        loading:false
       });
     } else {
-      search(this.props.endpoint, this.props.source, this.props.accessToken, this.props.proximity, value, this.onResult);
+      search(
+        this.props.endpoint,
+        this.props.source,
+        this.props.accessToken,
+        this.props.proximity,
+        value,
+        this.onResult);
     }
   },
-  onSubmit: function onSubmit(e) {
+  onSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
   },
-  moveFocus: function moveFocus(dir) {
-    if (this.state.loading) return;
+  moveFocus(dir) {
+    if(this.state.loading) return;
     this.setState({
-      focus: this.state.focus === null ? 0 : Math.max(0, Math.min(this.state.results.length - 1, this.state.focus + dir))
+      focus: this.state.focus === null ?
+        0 : Math.max(0,
+          Math.min(
+            this.state.results.length - 1,
+            this.state.focus + dir))
     });
   },
-  acceptFocus: function acceptFocus() {
+  acceptFocus() {
     if (this.state.focus !== null) {
       this.props.onSelect(this.state.results[this.state.focus]);
     }
   },
-  onKeyDown: function onKeyDown(e) {
+  onKeyDown(e) {
     switch (e.which) {
       // up
       case 38:
@@ -94,14 +100,14 @@ var Geocoder = React.createClass({
         break;
       // accept
       case 13:
-        if (this.state.results.length > 0 && this.state.focus == null) {
-          this.clickOption(this.state.results[0], 0);
+        if( this.state.results.length > 0 && this.state.focus == null) {
+          this.clickOption(this.state.results[0],0);
         }
         this.acceptFocus();
         break;
     }
   },
-  onResult: function onResult(err, res, body, searchTime) {
+  onResult(err, res, body, searchTime) {
     // searchTime is compared with the last search to set the state
     // to ensure that a slow xhr response does not scramble the
     // sequence of autocomplete display.
@@ -115,46 +121,38 @@ var Geocoder = React.createClass({
       this.props.onSuggest(this.state.results);
     }
   },
-  clickOption: function clickOption(place, listLocation) {
+  clickOption(place, listLocation) {
     this.props.onSelect(place);
-    this.setState({ focus: listLocation });
+    this.setState({focus:listLocation});
     // focus on the input after click to maintain key traversal
     // React.findDOMNode(this.refs.input).focus();
     return false;
   },
-  render: function render() {
-    var _this = this;
-
-    var input = React.createElement('input', {
-      ref: 'input',
-      className: this.props.inputClass,
-      onInput: this.onInput,
-      onKeyDown: this.onKeyDown,
-      onSubmit: this.onSubmit,
-      placeholder: this.props.inputPlaceholder,
-      type: 'text' });
-    return React.createElement(
-      'div',
-      null,
-      this.props.inputPosition === 'top' && input,
-      this.state.results.length > 0 && React.createElement(
-        'ul',
-        { className: (this.props.showLoader && this.state.loading ? 'loading' : '') + ' ' + this.props.resultsClass },
-        this.state.results.map(function (result, i) {
-          return React.createElement(
-            'li',
-            { key: result.id },
-            React.createElement(
-              'a',
-              { onClick: _this.clickOption.bind(_this, result, i),
-                className: _this.props.resultClass + ' ' + (i === _this.state.focus ? _this.props.resultFocusClass : ''),
-                key: result.id },
-              result.place_name
-            )
-          );
-        })
-      ),
-      this.props.inputPosition === 'bottom' && input
+  render() {
+    var input = <input
+      ref='input'
+      className={this.props.inputClass}
+      onInput={this.onInput}
+      onKeyDown={this.onKeyDown}
+      onSubmit={this.onSubmit}
+      placeholder={this.props.inputPlaceholder}
+      type='text' />;
+    return (
+      <div>
+        {this.props.inputPosition === 'top' && input}
+        {this.state.results.length > 0 && (
+          <ul className={`${this.props.showLoader && this.state.loading ? 'loading' : ''} ${this.props.resultsClass}`}>
+            {this.state.results.map((result, i) => (
+              <li key={result.id}>
+                <a onClick={this.clickOption.bind(this, result, i)}
+                  className={this.props.resultClass + ' ' + (i === this.state.focus ? this.props.resultFocusClass : '')}
+                  key={result.id}>{result.place_name}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+        {this.props.inputPosition === 'bottom' && input}
+      </div>
     );
   }
 });

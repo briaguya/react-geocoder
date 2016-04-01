@@ -30,6 +30,9 @@
     "url": "https://github.com/mapbox/react-geocoder/issues"
   },
   "homepage": "https://github.com/mapbox/react-geocoder",
+  "peerDependencies": {
+    "react": "^0.14.0"
+  },
   "devDependencies": {
     "browserify": "^6.2.0",
     "st": "^0.5.2",
@@ -37,7 +40,6 @@
   },
   "dependencies": {
     "xhr": "^1.17.0",
-    "babelify": "^6.0.0",
-    "react": "^0.13.x"
+    "babelify": "^6.0.0"
   }
 }

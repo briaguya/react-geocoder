@@ -10,9 +10,8 @@ var React = require('react'),
  * and provides an autocompleting interface for finding locations.
  */
 class Geocoder extends React.Component {
-  static displayName = 'Geocoder';
 
-  static defaultProps = {
+  Geocoder.defaultProps = {
     endpoint: 'https://api.tiles.mapbox.com',
     inputClass: '',
     resultClass: '',
@@ -27,7 +26,7 @@ class Geocoder extends React.Component {
     focusOnMount: true
   };
 
-  static propTypes = {
+  propTypes = {
     endpoint: PropTypes.string,
     source: PropTypes.string,
     inputClass: PropTypes.string,

@@ -33,12 +33,13 @@
   "devDependencies": {
     "browserify": "^6.2.0",
     "st": "^0.5.2",
-    "tape": "^4.6.2",
-    "watchify": "^2.1.0"
+    "tape": "^4.6.2"
   },
   "dependencies": {
-    "xhr": "^1.17.0",
     "babelify": "^6.0.0",
-    "react": "0.13.x"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "watchify": "^3.10.0",
+    "xhr": "^1.17.0"
   }
 }

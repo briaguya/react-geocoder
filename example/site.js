@@ -1,4 +1,5 @@
 var React = require('react'),
+  ReactDOM = require('react-dom'),
   Geocoder = require('../');
 
 var Example = React.createClass({
@@ -7,6 +8,8 @@ var Example = React.createClass({
   },
   onSelect: function(value) {
     this.setState({ value: value });
+  },
+  onInputChange: function(value) {
   },
   render: function() {
     /* jshint ignore:start */
@@ -21,7 +24,8 @@ var Example = React.createClass({
           <Geocoder
             accessToken='pk.eyJ1IjoidG1jdyIsImEiOiJIZmRUQjRBIn0.lRARalfaGHnPdRcc-7QZYQ'
             onSelect={this.onSelect}
-            showLoader={true}
+            showLoader={false}
+            onInputChange={this.onInputChange}
             />
         </div>
         {this.state.value && <pre className='keyline-all'>{JSON.stringify(this.state.value, null, 2)}</pre>}
@@ -32,5 +36,5 @@ var Example = React.createClass({
 });
 
 /* jshint ignore:start */
-React.render(<Example />, document.getElementById('app'));
+ReactDOM.render(<Example />, document.getElementById('app'));
 /* jshint ignore:end */

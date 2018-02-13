@@ -1,5 +1,5 @@
 {
-  "name": "@mapbox/react-geocoder",
+  "name": "react-geocoder",
   "version": "2.5.0",
   "description": "a mapbox geocoder component",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:mapbox/react-geocoder.git"
+    "url": "git@github.com:briaguya/react-geocoder.git"
   },
   "browserify": {
     "transform": [
@@ -27,9 +27,9 @@
   "author": "Tom MacWright",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mapbox/react-geocoder/issues"
+    "url": "https://github.com/briaguya/react-geocoder/issues"
   },
-  "homepage": "https://github.com/mapbox/react-geocoder",
+  "homepage": "https://github.com/briaguya/react-geocoder",
   "devDependencies": {
     "browserify": "^6.2.0",
     "st": "^0.5.2",
